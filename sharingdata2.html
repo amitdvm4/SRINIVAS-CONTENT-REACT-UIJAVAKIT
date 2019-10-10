@@ -1,0 +1,46 @@
+<h1>Share data from child component to parent</h1>
+<script src="http://uijavakit.com/downloads/react/react.min.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/react-dom.min.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/babel.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+	 class Child extends React.Component{
+         render(){
+            return <div><input ref="name" /><input type="button" value='send data' onClick={this.fnSendData.bind(this)} /></div>
+         }
+
+         fnSendData(){
+            debugger;
+            var name=this.refs.name.value;
+            this.props.f(name);
+         }
+	 }
+
+
+     class Parent extends React.Component {
+        constructor(){
+        	super();
+        	this.state={
+        	   'data':''
+            }
+            this.fnGetData=this.fnGetData.bind(this);
+        }
+
+        fnGetData(data){
+           debugger
+           this.setState({
+           'data':data
+          })
+        }
+        render(){
+        	return <div><div>Parent:{this.state.data}</div><div>Child<Child  f={this.fnGetData} /></div></div>
+        }
+
+     }
+	 ReactDOM.render(<Parent />,document.getElementById('root'));
+</script>

@@ -1,0 +1,36 @@
+<h1>Share data from parent  component to child</h1>
+
+<script src="http://uijavakit.com/downloads/react/react.min.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/react-dom.min.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/babel.js"></script>
+
+<div id="root"></div>
+
+<script type="text/babel">
+
+	 class Child extends React.Component{
+         render(){
+            return <div><b>Child:</b> Welcome....{this.props.name}</div>
+         }
+	 }
+
+
+     class Parent extends React.Component {
+        constructor(){
+        	super();
+        	this.state={
+        		'name1':'Sachin',
+        		'name2':'Dhoni'
+            }
+        }
+        render(){
+        	return <div>
+                <Child name={this.state.name1} />
+                <Child name={this.state.name2} /></div>
+        }
+
+     }
+	 ReactDOM.render(<Parent />,document.getElementById('root'));
+</script>

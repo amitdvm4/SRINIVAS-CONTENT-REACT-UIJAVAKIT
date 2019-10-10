@@ -1,0 +1,122 @@
+<h1>Create Reusable Component</h1>
+
+<script src="http://uijavakit.com/downloads/react/react.min.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/react-dom.min.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/babel.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/axios.min.js"></script>
+
+
+<div id="root"></div>
+
+<script type="text/babel">
+class TableCom extends React.Component{
+    render(){
+        return <table border="2px">
+                   <tr>
+                       {
+                           this.props.headers.length >0  && this.props.headers.map((e)=>{
+                                return <th>{e}</th>
+                           })
+                       }
+                   </tr>
+
+                   {
+                    this.props.data.length >0  && this.props.data.map((o)=>{
+                                return  <tr>
+                                            {
+                                                this.props.keys.length >0  && this.props.keys.map((k)=>{
+                                                        return <td>{o[k]}</td>
+                                                })
+                                            }
+                                        </tr>
+                           }) 
+                   }
+               </table>
+    }
+}
+class SelectCom extends React.Component{
+    render(){
+        return <select>
+                {
+                    this.props.opts && this.props.opts.length > 0 &&  this.props.opts.map((v)=>{
+                        return <option>{v}</option>
+                    })
+                }
+               </select>
+    }
+}
+
+class App extends React.Component{ 
+ constructor(){
+     super();
+     this.state={
+         postHeaders:['ID','TITLE','BODY'],
+         postKeys:['id','title','body'],
+         photosHeaders:['ID','URL','thumbnailUrl'],
+         photosKeys:['id','url','thumbnailUrl'],
+         posts:[],
+         photos:[],
+         players:['schin','dhoni','koh'],
+         heros:['ntr','prabhas']
+     }
+ }
+  render(){
+      return (<div>
+        <p>Players:
+        <SelectCom opts={this.state.players}/></p>
+        <p>My Heros: 
+        <SelectCom opts={this.state.heros}/></p>
+        <p>
+        <input type="button" value="getPosts" onClick={this.fnGetPosts.bind(this)} /> 
+        <input type="button" value="getPhotos" onClick={this.fnGetPhotos.bind(this)} /> 
+      </p>
+        <p>
+        <h3>Posts</h3>
+        {this.state.posts.length > 0 && <TableCom  headers={this.state.postHeaders} data={this.state.posts} keys={this.state.postKeys}/>}
+        
+        </p>
+        <p>
+        <h3>Photos</h3>
+        {this.state.photos.length > 0 && <TableCom headers={this.state.photosHeaders} data={this.state.photos} keys={this.state.photosKeys}/>}
+        
+        </p>
+      </div>)
+  }
+  fnGetPhotos(){
+    axios.get('https://jsonplaceholder.typicode.com/photos')
+      .then((res)=>{
+        debugger;
+        this.setState({
+            'photos':res.data
+        })
+      })
+      .catch((res)=>{
+        debugger;
+        this.setState({
+            'photos':[]
+        })
+      })
+  }
+  fnGetPosts(){
+      debugger;
+      axios.get('https://jsonplaceholder.typicode.com/posts')
+      .then((res)=>{
+        debugger;
+        this.setState({
+            'posts':res.data
+        })
+      })
+      .catch((res)=>{
+        debugger;
+        this.setState({
+            'posts':[]
+        })
+      })
+  }
+}
+
+    ReactDOM.render(<App />,document.getElementById('root'));
+</script>

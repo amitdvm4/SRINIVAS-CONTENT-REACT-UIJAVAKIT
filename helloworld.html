@@ -1,0 +1,40 @@
+<h1>No of Ways to create a component</h1>
+
+<script src="http://uijavakit.com/downloads/react/react.min.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/react-dom.min.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/babel.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/create-react-class.min.js"></script>
+
+
+<div id="root"></div>
+
+<script type="text/babel"> 
+
+    //Java Script function acting like a component
+
+	// const App= ()=>{
+	// 	return <div>Hellow world</div>
+	// }
+
+	//Class acting like a component(with ES6)
+
+	// class App extends React.Component{
+	// 	render(){
+	// 		return <div>Hellow world</div>
+	// 	}
+	// }
+
+	// using createReactClass lib(with out ES6)
+
+     const App=createReactClass({
+		 'render':function () {
+			 return <div>Hellow World</div>
+		 }
+	 })
+	
+   
+	ReactDOM.render(<App />,document.getElementById('root'));
+</script>

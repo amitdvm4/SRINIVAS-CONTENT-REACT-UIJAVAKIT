@@ -1,0 +1,77 @@
+<h1>Take data from all input controls</h1>
+
+<script src="http://uijavakit.com/downloads/react/react.min.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/react-dom.min.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/babel.js"></script>
+
+<style>
+ .cr{
+ 	color:red;
+ }
+ .cb{
+ 	color: blue;
+ }
+</style>
+<div id="root"></div>
+
+<script type="text/babel">
+	class Reg extends  React.Component{
+	    constructor(){
+	    	super();
+	    	this.fnReg=this.fnReg.bind(this);
+	    	this.fnChange=this.fnChange.bind(this);
+	    	this.state={
+	    	  'regDet':{}
+	        }
+	    }
+	    fnReg(){
+	      console.log(this.state.regDet);
+	    }
+
+	    fnChange(e){
+	     this.setState({
+	     	'regDet':{
+	     	   ...this.state.regDet,
+               [e.target.id]:e.target.type=='checkbox' ? e.target.checked : e.target.value
+	        }
+	     })
+	   }
+	    render(){
+	       return  <div>
+	       	        <div>
+	       	        user Name <input id='un' onChange={this.fnChange} />
+	       	        </div>
+	       	        <div>
+	       	        password <input id='pwd' type='password' onChange={this.fnChange}  />
+	       	        </div>
+	       	        <div>
+	       	        	Gender: <input type="radio" id="gen" value="M" onChange={this.fnChange} name="gen" />Male<input type="radio" id='gen' value="F" onChange={this.fnChange} name='gen' />FeMale
+	       	        </div>
+	       	        <div>
+	       	        	Hobbies: <input type="checkbox" onChange={this.fnChange} id="isCric" />Cricket<input type="checkbox" id="isFB" onChange={this.fnChange} />FB
+	       	        </div>
+	       	        <div>
+	       	        	Country: <select id='cou' onChange={this.fnChange}>
+	       	        		      <option value="1">India</option>
+	       	        		      <option value='2'>Pak</option>
+	       	        		      <option value="3">China</option>
+	       	        		     </select>
+	       	        </div>
+	       	        <div>
+	       	        	Addresss <textarea id='add' onChange={this.fnChange}></textarea>
+	       	        </div>
+	       	        <div>
+	       	        	upload <input id='photo' onChange={this.fnChange} type="file" />
+	       	        </div>
+	       	        <div>
+	       	        	<input type='button' value="reg" onClick={this.fnReg} />
+	       	        </div>
+	       	       </div>
+	    }
+
+	  
+    }
+    ReactDOM.render(<Reg />,document.getElementById('root'));
+</script>

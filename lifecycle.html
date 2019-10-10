@@ -1,0 +1,73 @@
+<h1>Lifecycle methods</h1>
+
+<script src="http://uijavakit.com/downloads/react/react.min.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/react-dom.min.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/babel.js"></script>
+
+<div id="root"></div>
+<script type="text/babel">
+
+   class Child extends React.Component{
+         componentWillReceiveProps(){
+               console.log('will receive props')
+         }
+         render(){
+               console.log('child render');
+               return <div>{this.props.n}</div>
+         }
+   }
+   class App extends React.Component{
+   		constructor(){
+   			super();
+            console.log('con');
+            this.state={
+            'name':'sachin'
+         }
+
+          setTimeout(function(){
+              this.setState({
+              'name':'dhoni'
+           })
+           }.bind(this),2000);
+       	}
+
+          shouldComponentUpdate(){
+               console.log('should update');
+               return true;
+          }
+
+          componentDidMount(){
+          console.log('did mount')
+          }
+
+          componentDidUpdate(){
+          console.log('did update')
+       }
+
+          componentWillUpdate(){
+           console.log('will update');
+          
+       }
+
+        componentDidCatch(error, info) {
+
+        debugger;
+    
+  }
+
+
+   	    render(){
+            console.log('render')
+   	    	return <div><Child n={this.state.name}/></div>
+   	    }
+
+          componentWillMount(){
+             console.log('will mount')
+          }
+   }
+
+   ReactDOM.render(<App />,document.getElementById('root'))
+
+</script>

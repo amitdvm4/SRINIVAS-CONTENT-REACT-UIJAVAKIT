@@ -1,0 +1,54 @@
+<h1>Take data using ref and apply inline and external styling</h1>
+
+<script src="http://uijavakit.com/downloads/react/react.min.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/react-dom.min.js"></script>
+
+<script src="http://uijavakit.com/downloads/react/babel.js"></script>
+
+<style>
+ .cr{
+ 	color:red;
+ }
+ .cb{
+ 	color: blue;
+ }
+</style>
+<div id="root"></div>
+
+<script type="text/babel">
+	class App extends  React.Component{
+	    constructor(){
+	    	super();
+	    	this.myRef=React.createRef();
+	    	this.state={
+	    	'sum':0,
+	    	'clr':''
+	    }
+	    	this.fnAdd=this.fnAdd.bind(this);
+	    }
+	    render(){
+	       return  <div>
+	       	         <input ref="n1" /><input ref={this.myRef} /><input type="button" value="add" onClick={this.fnAdd}/>
+					 <div><span style={{color:this.state.clr}}>{this.state.sum}(Through Inline style attribute)</span></div>
+	       	         <b className={this.state.sum > 100 ? 'cr':'cb'}>{this.state.sum}(Through External by class)</b>
+	       	       </div>
+	    }
+
+	    fnAdd=()=>{
+	        let clr=''
+	        let res=Number(this.refs.n1.value) + Number(this.myRef.current.value);
+	        if(res > 100){
+	          clr='red'
+	        }else{
+	          clr='blue'
+	        }
+
+	        this.setState({
+	        	'sum':res,
+	        	'clr':clr
+	        })
+	    }
+    }
+    ReactDOM.render(<App />,document.getElementById('root'));
+</script>
